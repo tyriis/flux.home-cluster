@@ -13,7 +13,7 @@ spec:
         namespace: flux-system
       version: '>=1.2.11'
   interval: 5m0s
-  releaseName: nfs-client-provisioner
+  releaseName: nfs-provisioner
   targetNamespace: storage
   values:
     nfs:
@@ -42,7 +42,7 @@ spec:
     serviceAccount:
       create: true
 
-      name: nfs-client-provisioner
+      name: nfs-provisioner
 
     affinity:
       nodeAffinity:
