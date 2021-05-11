@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  timeout: 10m0s
+  timeout: 5m0s
   # install:
   #   crds: Create
   targetNamespace: monitoring
@@ -100,13 +100,6 @@ spec:
       sidecar:
         dashboards:
           enabled: true
-          flux:
-            flux-cluster:
-              url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
-              datasource: Prometheus
-            flux-control-plane:
-              url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-              datasource: Prometheus
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
@@ -127,14 +120,14 @@ spec:
             allowUiUpdates: true
             options:
               path: /var/lib/grafana/dashboards/flux
-      #dashboards:
-      #  flux:
-      #    flux-cluster:
-      #      url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
-      #      datasource: Prometheus
-      #    flux-control-plane:
-      #      url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-      #      datasource: Prometheus
+      dashboards:
+        flux:
+          flux-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+            datasource: Prometheus
+          flux-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+            datasource: Prometheus
 
       #dashboards:
       #  enabled: true
