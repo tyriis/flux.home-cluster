@@ -1,175 +1,175 @@
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: kube-prometheus-stack
-#   namespace: monitoring
-# spec:
-#   interval: 1m0s
-#   chart:
-#     spec:
-#       chart: kube-prometheus-stack
-#       version: 15.4.4
-#       sourceRef:
-#         kind: HelmRepository
-#         name: prometheus-community
-#         namespace: flux-system
-#       interval: 5m0s
-#   timeout: 10m0s
-#   values:
-#     prometheus:
-#       prometheusSpec:
-#         affinity:
-#           nodeAffinity:
-#             requiredDuringSchedulingIgnoredDuringExecution:
-#               nodeSelectorTerms:
-#               - matchExpressions:
-#                 - key: node-role.kubernetes.io/monitoring
-#                   operator: In
-#                   values:
-#                   - "true"
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 1m0s
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 15.4.4
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 5m0s
+  timeout: 10m0s
+  values:
+    prometheus:
+      prometheusSpec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/monitoring
+                  operator: In
+                  values:
+                  - "true"
 
-#         additionalScrapeConfigs:
-#         - job_name: "ohm-exporter"
-#           scrape_interval: 15s
-#           static_configs:
-#             - targets: [ "192.168.1.23:4445", "192.168.1.12:4445" ]
-#         - job_name: "windows-exporter"
-#           scrape_interval: 15s
-#           static_configs:
-#             - targets: [ "192.168.1.23:9182" ]
-#         - job_name: "esphome-exporter"
-#           scrape_interval: 15s
-#           static_configs:
-#             - targets: [ "192.168.1.214" ]
-#         - job_name: 'kubernetes-service-endpoints'
-#           kubernetes_sd_configs:
-#           - role: endpoints
-#           relabel_configs:
-#           - action: labelmap
-#             regex: __meta_kubernetes_service_label_(.+)
-#           - source_labels: [__meta_kubernetes_namespace]
-#             action: replace
-#             target_label: kubernetes_namespace
-#           - source_labels: [__meta_kubernetes_service_name]
-#             action: replace
-#             target_label: kubernetes_name
+        additionalScrapeConfigs:
+        - job_name: "ohm-exporter"
+          scrape_interval: 15s
+          static_configs:
+            - targets: [ "192.168.1.23:4445", "192.168.1.12:4445" ]
+        - job_name: "windows-exporter"
+          scrape_interval: 15s
+          static_configs:
+            - targets: [ "192.168.1.23:9182" ]
+        - job_name: "esphome-exporter"
+          scrape_interval: 15s
+          static_configs:
+            - targets: [ "192.168.1.214" ]
+        - job_name: 'kubernetes-service-endpoints'
+          kubernetes_sd_configs:
+          - role: endpoints
+          relabel_configs:
+          - action: labelmap
+            regex: __meta_kubernetes_service_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            action: replace
+            target_label: kubernetes_name
 
-#         - job_name: 'kubernetes-pods'
-#           kubernetes_sd_configs:
-#           - role: pod
+        - job_name: 'kubernetes-pods'
+          kubernetes_sd_configs:
+          - role: pod
 
-#           relabel_configs:
-#           - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-#             action: keep
-#             regex: true
-#           - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-#             action: replace
-#             target_label: __metrics_path__
-#             regex: (.+)
-#           - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-#             action: replace
-#             regex: ([^:]+)(?::\d+)?;(\d+)
-#             replacement: $1:$2
-#             target_label: __address__
-#           - action: labelmap
-#             regex: __meta_kubernetes_pod_label_(.+)
-#           - source_labels: [__meta_kubernetes_namespace]
-#             action: replace
-#             target_label: kubernetes_namespace
-#           - source_labels: [__meta_kubernetes_pod_name]
-#             action: replace
-#             target_label: kubernetes_pod_name
+          relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+          - action: labelmap
+            regex: __meta_kubernetes_pod_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            action: replace
+            target_label: kubernetes_pod_name
 
-#       storageSpec:
-#         volumeClaimTemplate:
-#           spec:
-#             storageClassName: "local-path"
-#             accessModes: ["ReadWriteOnce"]
-#             resources:
-#               requests:
-#                 storage: 10Gi
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: "local-path"
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 10Gi
 
-#     grafana:
-#       enabled: true
-#       serviceMonitor:
-#         enabled: true
-#       sidecar:
-#         dashboards:
-#           enabled: true
-#           flux:
-#             flux-cluster:
-#               url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
-#               datasource: Prometheus
-#             flux-control-plane:
-#               url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-#               datasource: Prometheus
-#       dashboardProviders:
-#         dashboardproviders.yaml:
-#           apiVersion: 1
-#           providers:
-#           - name: default
-#             orgId: 1
-#             folder: ''
-#             type: file
-#             disableDeletion: true
-#             allowUiUpdates: false
-#             options:
-#               path: /tmp/dashboards
-#           - name: flux
-#             orgId: 1
-#             folder: Flux
-#             type: file
-#             disableDeletion: false
-#             allowUiUpdates: true
-#             options:
-#               path: /var/lib/grafana/dashboards/flux
-#       #dashboards:
-#       #  flux:
-#       #    flux-cluster:
-#       #      url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
-#       #      datasource: Prometheus
-#       #    flux-control-plane:
-#       #      url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
-#       #      datasource: Prometheus
+    grafana:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      sidecar:
+        dashboards:
+          enabled: true
+          flux:
+            flux-cluster:
+              url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+              datasource: Prometheus
+            flux-control-plane:
+              url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+              datasource: Prometheus
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+          - name: default
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: true
+            allowUiUpdates: false
+            options:
+              path: /tmp/dashboards
+          - name: flux
+            orgId: 1
+            folder: Flux
+            type: file
+            disableDeletion: false
+            allowUiUpdates: true
+            options:
+              path: /var/lib/grafana/dashboards/flux
+      #dashboards:
+      #  flux:
+      #    flux-cluster:
+      #      url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+      #      datasource: Prometheus
+      #    flux-control-plane:
+      #      url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+      #      datasource: Prometheus
 
-#       #dashboards:
-#       #  enabled: true
-#       #  label: grafana_dashboard
-#       #  folder: /tmp/dashboards
-#       #  provider:
-#       #    foldersFromFilesStructure: true
-#       #
-#       #  ## Annotations for Grafana dashboard configmaps
-#       #  ##
-#       #  annotations:
-#       #    k8s-sidecar-target-directory: "/tmp/dashboards/kubernetes
+      #dashboards:
+      #  enabled: true
+      #  label: grafana_dashboard
+      #  folder: /tmp/dashboards
+      #  provider:
+      #    foldersFromFilesStructure: true
+      #
+      #  ## Annotations for Grafana dashboard configmaps
+      #  ##
+      #  annotations:
+      #    k8s-sidecar-target-directory: "/tmp/dashboards/kubernetes
 
-#       ingress:
-#         enabled: true
-#         annotations:
-#           kubernetes.io/ingress.class: traefik
-#           traefik.ingress.kubernetes.io/frontend-entry-points: http,https
-#           traefik.ingress.kubernetes.io/redirect-entry-point: https
-#           traefik.ingress.kubernetes.io/redirect-permanent: "true"
-#         hosts:
-#           - monitoring.k8s.home
-#         path: /
-#         tls:
-#           - secretName: k8s-home-cert
-#             hosts:
-#               - monitoring.k8s.home
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/frontend-entry-points: http,https
+          traefik.ingress.kubernetes.io/redirect-entry-point: https
+          traefik.ingress.kubernetes.io/redirect-permanent: "true"
+        hosts:
+          - monitoring.k8s.home
+        path: /
+        tls:
+          - secretName: k8s-home-cert
+            hosts:
+              - monitoring.k8s.home
 
-#       affinity:
-#         nodeAffinity:
-#           requiredDuringSchedulingIgnoredDuringExecution:
-#             nodeSelectorTerms:
-#             - matchExpressions:
-#               - key: node-role.kubernetes.io/monitoring
-#                 operator: In
-#                 values:
-#                 - "true"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/monitoring
+                operator: In
+                values:
+                - "true"
 
-#   valuesFrom:
-#   - kind: Secret
-#     name: "kube-prometheus-stack-helm-values"
-#     optional: false
+  valuesFrom:
+  - kind: Secret
+    name: "kube-prometheus-stack-helm-values"
+    optional: false
