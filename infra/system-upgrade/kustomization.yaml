@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: system-upgrade
 resources:
 - https://github.com/rancher/system-upgrade-controller/releases/download/v0.6.2/system-upgrade-controller.yaml
+- k3s-plan.yaml
