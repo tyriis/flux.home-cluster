@@ -1,0 +1,54 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nfs-client-provisioner
+  namespace: storage
+spec:
+  chart:
+    spec:
+      chart: nfs-client-provisioner
+      sourceRef:
+        kind: HelmRepository
+        name: helm-stable
+      version: '>=1.2.11'
+  interval: 5m0s
+  releaseName: nfs-client-provisioner
+  targetNamespace: storage
+  values:
+    nfs:
+      server: nas.home
+      path: /volume1/k3s-volumes
+
+    storageClass:
+      create: true
+      provisionerName: k3s.home/nfs-client-provisioner
+      defaultClass: false
+      name: nfs
+      allowVolumeExpansion: true
+      reclaimPolicy: Delete
+      archiveOnDelete: true
+      # Set access mode - ReadWriteOnce, ReadOnlyMany or ReadWriteMany
+      accessModes: ReadWriteOnce
+
+    rbac:
+      create: true
+
+    # If true, create & use Pod Security Policy resources
+    # https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+    podSecurityPolicy:
+      enabled: false
+
+    serviceAccount:
+      create: true
+
+      name: nfs-client-provisioner
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: node-role.kubernetes.io/application
+              operator: In
+              values:
+              - "true"
