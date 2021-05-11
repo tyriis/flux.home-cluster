@@ -4,7 +4,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
-  interval: 5m0s
+  interval: 1m0s
   chart:
     spec:
       chart: kube-prometheus-stack
