@@ -4,7 +4,8 @@ metadata:
   name: speedtest-exporter
   namespace: monitoring
 spec:
-  interval: 5m
+  interval: 5m0s
+  timeout: 3m0s
   chart:
     spec:
       chart: speedtest-exporter
@@ -13,7 +14,6 @@ spec:
         kind: HelmRepository
         name: k8s-at-home
         namespace: flux-system
-      interval: 5m
   values:
     #affinity:
     #  nodeAffinity:
