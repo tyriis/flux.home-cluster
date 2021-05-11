@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: flux-notifications-webhook-url
+  namespace: flux-system
+spec:
+  encryptedData:
+    address: AgDZeQk36+bkGoulUVYFvN5naJPjGout+FrPZzZOOl5TXTb7Mu8FMurT+5YnZDf4Exp3z9iPb1U/s3pwzXG/5UI20k+fS//WEqKzF1GkJqDwuJysEx0WQlpwia8CmTRw6G9sTPaeWuBFvrHP89J7V89eRGXxTvXrTzB+BCtym6AtEFYC1QJCSv4HaL49JNBq+6QVSo+RWaWhIe9MMWHGeiZR+YCtwPr8oTbERLQoK5zs2mqqlQL94spQU/BMBtYHMST3EAjQS1j4T8pGRl+sU+MEhUUBmHea6c7j+OnmFW64gRtgCINbPXHmik8ImGcAxndSjbUIOQ4eWXfNiPWKUqIC530QIi1dapdWiLpRRw/Iky5fUEoJjPVG6FqD9liOEOB/+xnUA/37WmLo2H8K9RlPx5rw47W2UtC+ca5a5VOADhlutEYUxK8e+xufg4H/x6JI3knAewNqJjDKry4zgGiWTGbxRDHgLZ3xstOmGIgAJnff2KkULkUMHfoPmk4YiYEuJxqIv3eTM1gclmJU2RFWoKp7Ur4wWFyMCr4P483yKyAV+fyNLxzRi42rKAOsNl3AUlv1ScpMBWoe6KGLy4R1K6lbxl34A2+7KwCpCtUx6kL8BIevH/SQJHLP0grm66BUS0jZ6Fs898jkkng9mjZ6ivWQ/6KquMU8ADYqXGTyBznzciaE6rgeKyE53d4EokxBc53JwYWOebf/ObZr+l3/2sOisNNW/bBIFvwSt8wERyajLG6QD2SADZnZEhEWayA8vsZDxkaLUZSwouIwZPhvgL4KfvHha5SKkh8cEAas7J1LRYOyx+Gi/Wnu4OzlrCZ6Z3LMNaDQkUPSftgpJZwzthrLPke+mx8=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: flux-notifications-webhook-url
+      namespace: flux-system
+
