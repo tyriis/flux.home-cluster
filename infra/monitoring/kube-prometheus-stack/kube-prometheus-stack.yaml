@@ -15,11 +15,11 @@ spec:
         namespace: flux-system
       interval: 5m0s
   timeout: 10m0s
-  install:
-    crds: Create
+  # install:
+  #   crds: Create
   targetNamespace: monitoring
-  upgrade:
-    crds: CreateReplace
+  # upgrade:
+  #   crds: CreateReplace
   values:
     prometheus:
       prometheusSpec:
@@ -97,7 +97,7 @@ spec:
     grafana:
       enabled: true
       # serviceMonitor:
-      #   enabled: true
+      #   enabled: true # if enabled chart fails :/
       sidecar:
         dashboards:
           enabled: true
