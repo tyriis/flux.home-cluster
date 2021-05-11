@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: kube-prometheus-stack-helm-values
+  namespace: monitoring
+spec:
+  encryptedData:
+    values.yaml: AgCUu6IWNNqBAg//swOFX7nbdAybr6sZq00P0UTIPKUJVJbqrJHS08GBdIx+bMizTmD8q/S9ezNoKj1mg5GZe5vEjGAAlcpkEyw+Z+bqqaCo2pPm7GMNofPULIgbttBRfxXJCL55pKPPmmYzAsg3qRRi+AYpfyvk40PzypXGgLAVRbdwoMEahhOauOkUKz85uSDaESClkyrGC2zonUeh5mNrw0jE8cpl9WLgRUaJzEyaj3cpi8aJojUvy+6OCBv3WIFdH1XFKMnbYow6TdKvQx0Hp/5mNqkh43TxWu/ywvd1TzsUT4ZemNDydDGFUrRlStG/KKCcB2EVXh7Ok3VEGyzvifiW7H8KdYH9MAsi8Z90UnlxvGxQOSWB7f0WcfuCXP4y95VBv8R/7m4RQLQkvvEOsd8GAENVlHcO8Jp7m8gXRZbiC8IqrnbvN9vpjOUS1V8FDyjULFMy5ERgTSvKUj5SxLR9PBC4U+HWIxoeeUdrzVAe70AvUECGxnH1xANq1BBwC4OKYQyxPfyFjYC7BZgoHtSPZOf9J2FcuNOvzBxhTjHZr2xxdpzd6T+jey33ClA48L9I4Uug5Um60zrOb2xKbWXxqtMFu1G8yBSOey3uLhxbv1Wj+gn7cw/u6sojLDTD7RBrCwQOqSQHg54vKMofk3b3/ZLe+IpyOleOjym6VgGkoxJ1I52XG2SImcz1HQEL08zULYQN4mUuB1/JI6ze8VZrbTvmz6NoAGZ1/w5YlQy9Tg==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: kube-prometheus-stack-helm-values
+      namespace: monitoring
+
