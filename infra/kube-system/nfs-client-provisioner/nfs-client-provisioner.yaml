@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: nfs-client-provisioner
-  namespace: storage
+  namespace: kube-system
 spec:
   chart:
     spec:
@@ -14,7 +14,7 @@ spec:
       version: '>=1.2.11'
   interval: 5m0s
   releaseName: nfs-provisioner
-  targetNamespace: storage
+  targetNamespace: kube-system
   values:
     nfs:
       server: nas.home
@@ -42,7 +42,10 @@ spec:
     serviceAccount:
       create: true
 
-      name: nfs-provisioner
+      # name: nfs-provisioner
+
+    nodeSelector:
+      kubernetes.io/arch: amd64
 
     affinity:
       nodeAffinity:
