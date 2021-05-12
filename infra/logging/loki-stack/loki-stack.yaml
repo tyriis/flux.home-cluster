@@ -24,7 +24,7 @@ spec:
         - ReadWriteOnce
         size: 10Gi
         annotations: {}
-        storageClassName: nfs
+        # storageClassName: nfs
 
       serviceMonitor:
         enabled: true
