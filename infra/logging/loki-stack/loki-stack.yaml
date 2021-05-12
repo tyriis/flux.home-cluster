@@ -31,16 +31,16 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/monitoring: "true"
 
-      #affinity:
-      #  podAntiAffinity:
-      #    requiredDuringSchedulingIgnoredDuringExecution:
-      #    - labelSelector:
-      #        matchExpressions:
-      #        - key: app
-      #          operator: In
-      #          values:
-      #          - loki
-      #      topologyKey: "kubernetes.io/hostname"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - loki
+            topologyKey: "kubernetes.io/hostname"
     promtail:
       serviceMonitor:
         enabled: true
