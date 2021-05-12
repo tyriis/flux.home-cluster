@@ -18,16 +18,19 @@ spec:
   values:
     loki:
       # replicas: 3
-      #persistence:
-      #  enabled: true
-      #  accessModes:
-      #  - ReadWriteOnce
-      #  size: 10Gi
-      #  annotations: {}
-      #  storageClassName: nfs
+      persistence:
+        enabled: true
+        accessModes:
+        - ReadWriteOnce
+        size: 10Gi
+        annotations: {}
+        storageClassName: nfs
 
       serviceMonitor:
         enabled: true
+
+      nodeSelector:
+        node-role.kubernetes.io/monitoring: "true"
 
       #affinity:
       #  podAntiAffinity:
