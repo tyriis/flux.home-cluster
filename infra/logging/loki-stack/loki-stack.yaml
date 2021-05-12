@@ -64,7 +64,7 @@ spec:
       #  loadBalancerIP: 10.0.6.51
 
     grafana:
-      enabled: false
+      enabled: true
       sidecar:
         datasources:
           enabled: true
