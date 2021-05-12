@@ -22,7 +22,7 @@ spec:
 
     storageClass:
       create: true
-      provisionerName: k3s.home/nfs-client-provisioner
+      # provisionerName: k3s.home/nfs-client-provisioner
       defaultClass: false
       name: nfs
       allowVolumeExpansion: true
