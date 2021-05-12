@@ -16,6 +16,7 @@ spec:
   releaseName: nfs-subdir-external-provisioner
   targetNamespace: kube-system
   values:
+    # https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/blob/master/charts/nfs-subdir-external-provisioner/values.yaml
     replicaCount: 1
     strategyType: Recreate
 
