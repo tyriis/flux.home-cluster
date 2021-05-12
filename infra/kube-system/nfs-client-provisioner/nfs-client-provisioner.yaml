@@ -13,7 +13,7 @@ spec:
         namespace: flux-system
       version: '>=1.2.11'
   interval: 5m0s
-  releaseName: nfs-provisioner
+  releaseName: nfs-client-provisioner
   targetNamespace: kube-system
   values:
     nfs:
