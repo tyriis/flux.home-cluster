@@ -24,7 +24,7 @@ spec:
         - ReadWriteOnce
         size: 10Gi
         annotations: {}
-        # storageClassName: nfs
+        storageClassName: nfs
 
       serviceMonitor:
         enabled: true
@@ -67,7 +67,7 @@ spec:
       #  loadBalancerIP: 10.0.6.51
 
     grafana:
-      enabled: true
+      enabled: false
       sidecar:
         datasources:
           enabled: true
