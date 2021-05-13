@@ -24,7 +24,15 @@ spec:
     #          operator: In
     #          values:
     #          - "true"
+    image:
+      repository: ghcr.io/miguelndecarvalho/speedtest-exporter
+      tag: v3.2
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
     prometheus:
       podMonitor:
         enabled: true
-        interval: 15m
+        interval: 5m
+        scrapeTimeout: 1m
+        additionalLabels: {}
