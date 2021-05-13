@@ -82,7 +82,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             metadata:
-              name: prometheus-kube-prometheus-0
+              name: ""
             spec:
               storageClassName: local-path
               accessModes: ["ReadWriteOnce"]
