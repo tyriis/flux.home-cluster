@@ -27,3 +27,4 @@ spec:
     #          - "true"
     serviceMonitor:
       enabled: true
+      interval: "5m"
