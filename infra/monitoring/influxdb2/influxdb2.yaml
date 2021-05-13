@@ -16,7 +16,7 @@ spec:
   timeout: 5m0s
   # install:
   #   crds: Create
-  targetNamespace: monitoring
+  # targetNamespace: monitoring
   # upgrade:
   #  crds: CreateReplace
   values:
@@ -53,7 +53,7 @@ spec:
     ##
     adminUser:
       organization: "influxdata"
-      bucket: "default"
+      bucket: "homeassistant"
       user: "admin"
       retention_policy: "0s"
       ## Leave empty to generate a random password and token.
