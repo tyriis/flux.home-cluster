@@ -21,10 +21,9 @@ spec:
       tag: v0.12.1
       pullPolicy: Always
     communications:
-      webhook:
+      discord:
         enabled: true
-        serviceMonitor:
-          enabled: true
+        notiftype: short
     config:
       settings:
         clustername: k3s.home
