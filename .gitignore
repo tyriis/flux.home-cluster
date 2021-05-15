@@ -1,0 +1,13 @@
+# IDEs and editors
+/.idea
+/.vscode
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# log files
+/log/*.log
+
+# env file
+/*.env
