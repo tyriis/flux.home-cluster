@@ -161,7 +161,7 @@ spec:
           # Ref: https://grafana.com/grafana/dashboards/11074
           "1 Node Exporter for Prometheus Dashboard EN v20201010":
             gnetId: 11074
-            revision: 5
+            revision: 9
             datasource: Prometheus
         flux:
           flux-cluster:
