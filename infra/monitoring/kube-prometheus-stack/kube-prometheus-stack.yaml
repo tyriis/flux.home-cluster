@@ -157,18 +157,17 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/flux
       dashboards:
-        default:
-          # Ref: https://grafana.com/grafana/dashboards/11074
-          "1 Node Exporter for Prometheus Dashboard EN v20201010":
-            gnetId: 11074
-            revision: 9
-            datasource: Prometheus
         flux:
           flux-cluster:
             url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
             datasource: Prometheus
           flux-control-plane:
             url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+            datasource: Prometheus
+          # Ref: https://grafana.com/grafana/dashboards/11074
+          "1 Node Exporter for Prometheus Dashboard EN v20201010":
+            gnetId: 11074
+            revision: 9
             datasource: Prometheus
 
       # dashboards:
