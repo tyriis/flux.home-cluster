@@ -35,5 +35,5 @@ spec:
       podMonitor:
         enabled: true
         interval: 30m
-        scrapeTimeout: 1m
+        scrapeTimeout: 5m
         additionalLabels: {}
