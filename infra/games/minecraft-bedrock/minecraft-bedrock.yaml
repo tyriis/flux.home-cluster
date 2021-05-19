@@ -18,28 +18,28 @@ spec:
   values:
     extraEnv:
       TZ: Europe/Vienna
+
     persistence:
-      # storageClass: "rook-ceph-block"
+      storageClass: nfs-client
       dataDir:
         enabled: true
         Size: 10Gi
+
     resources:
       requests:
         memory: 512Mi
         cpu: 500m
-      # limits:
-      #   memory: 1000Mi
-    # podAnnotations:
-    #   backup.velero.io/backup-volumes: datadir
+
     minecraftServer:
       eula: "TRUE"
-      version: "LATEST"
-      difficulty: normal
-      gameMode: survival
+      version: LATEST
+      difficulty: easy
+      gameMode: creative
       levelName: world
-      serverName: "mueller minecraft (survival)"
-      serviceType: LoadBalancer
-      # loadBalancerIP: 10.0.6.103
+      serverName: "minecraft (creative)"
+      serviceType: ClusterIP
+      maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
+      cheats: true
 
     nodeSelector:
       kubernetes.io/arch: amd64
