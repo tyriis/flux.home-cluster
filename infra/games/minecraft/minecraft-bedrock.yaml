@@ -35,7 +35,7 @@ spec:
       version: LATEST
       difficulty: hard
       gameMode: survival
-      levelName: pewpew
+      levelName: omg
       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
       cheats: true
       serverName: "minecraft (survival)"
