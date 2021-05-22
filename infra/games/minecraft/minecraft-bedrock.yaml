@@ -33,12 +33,12 @@ spec:
     minecraftServer:
       eula: "TRUE"
       version: LATEST
-      difficulty: easy
-      gameMode: creative
-      levelName: KAMELOT
+      difficulty: hard
+      gameMode: survival
+      levelName: pewpew
       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
       cheats: true
-      serverName: "minecraft (creative)"
+      serverName: "minecraft (survival)"
       serviceType: LoadBalancer
 
     nodeSelector:
