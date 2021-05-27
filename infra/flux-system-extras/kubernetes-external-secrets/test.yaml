@@ -16,9 +16,9 @@ spec:
   data:
     - name: password
       # The full path of the secret to read, as in `vault read secret/data/hello-service/credentials`
-      key: secrets/myapp/config
+      key: kv/test/username
       property: password
     # Vault values are matched individually. If you have several keys in your Vault secret, you will need to add them all separately
     - name: username
-      key: secrets/myapp/config
+      key: kv/test/username
       property: username
