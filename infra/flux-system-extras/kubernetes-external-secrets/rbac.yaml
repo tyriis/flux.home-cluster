@@ -17,3 +17,6 @@ subjects:
   - kind: ServiceAccount
     name: vault-auth
     namespace: flux-system
+  - kind: ServiceAccount
+    name: kubernetes-external-secrets
+    namespace: flux-system
