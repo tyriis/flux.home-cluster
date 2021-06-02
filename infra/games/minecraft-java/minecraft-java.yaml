@@ -38,7 +38,7 @@ spec:
 
     minecraftServer:
       eula: "TRUE"
-      version: 1.16.2
+      version: LATEST
       type: PAPER
       # paperDownloadUrl: https://papermc.io/api/v1/paper/1.16.5/latest/download
       forceReDownload: true
