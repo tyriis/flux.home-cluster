@@ -62,6 +62,8 @@ spec:
             enabled: true
             type: ClusterIP
             port: 19133
+          ingress:
+            enabled: false
 
     nodeSelector:
       kubernetes.io/arch: amd64
