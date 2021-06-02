@@ -1,46 +1,47 @@
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: minecraft-bedrock
-#   namespace: games
-# spec:
-#   interval: 5m
-#   chart:
-#     spec:
-#       chart: minecraft-bedrock
-#       version: 1.1.9
-#       sourceRef:
-#         kind: HelmRepository
-#         name: minecraft-server
-#         namespace: flux-system
-#       interval: 5m
-#   values:
-#     extraEnv:
-#       TZ: Europe/Vienna
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minecraft-bedrock
+  namespace: games
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: minecraft-bedrock
+      version: 1.1.9
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server
+        namespace: flux-system
+      interval: 5m
+  values:
+    extraEnv:
+      TZ: Europe/Vienna
 
-#     persistence:
-#       storageClass: nfs-client
-#       dataDir:
-#         enabled: true
-#         Size: 10Gi
+    persistence:
+      storageClass: nfs-client
+      dataDir:
+        enabled: true
+        Size: 10Gi
 
-#     resources:
-#       requests:
-#         memory: 512Mi
-#         cpu: 500m
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
 
-#     minecraftServer:
-#       eula: "TRUE"
-#       version: LATEST
-#       difficulty: hard
-#       gameMode: survival
-#       levelName: omg
-#       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
-#       cheats: true
-#       serverName: "minecraft (survival)"
-#       serviceType: LoadBalancer
+    minecraftServer:
+      eula: "TRUE"
+      version: LATEST
+      difficulty: hard
+      gameMode: survival
+      levelName: omg
+      maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
+      cheats: true
+      serverName: "minecraft (survival)"
+      serviceType: NodePort
+      nodePort: 19133
 
-#     nodeSelector:
-#       kubernetes.io/arch: amd64
-#       node-role.kubernetes.io/application: "true"
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      node-role.kubernetes.io/application: "true"
