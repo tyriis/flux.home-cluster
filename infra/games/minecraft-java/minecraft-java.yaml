@@ -54,15 +54,16 @@ spec:
       serverName: "minecraft (survival)"
       serviceType: LoadBalancer
       loadBalancerIP: 192.168.1.62
-    
+
       extraPorts:
         - name: geyser
-          containerPort: 19133/UDP
+          containerPort: 19133
+          protocol: UDP
           service:
             enabled: true
             type: LoadBalancer
             loadBalancerIP: 192.168.1.62
-            port: 19133/UDP
+            port: 19133
           ingress:
             enabled: false
 
