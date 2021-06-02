@@ -57,13 +57,13 @@ spec:
 
       extraPorts:
         - name: geyser
-          containerPort: 19133
+          containerPort: 19132
           protocol: UDP
           service:
             enabled: true
             type: LoadBalancer
             loadBalancerIP: 192.168.1.62
-            port: 19133
+            port: 19132
           ingress:
             enabled: false
 
