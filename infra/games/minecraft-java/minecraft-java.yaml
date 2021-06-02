@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minecraft-java
+  namespace: games
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: minecraft
+      version: 3.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server
+        namespace: flux-system
+      interval: 5m
+  values:
+    extraEnv:
+      TZ: Europe/Vienna
+      ENABLE_AUTOPAUSE: TRUE
+
+    persistence:
+      storageClass: nfs-client
+      dataDir:
+        enabled: true
+        Size: 10Gi
+
+    resources:
+      requests:
+        memory: 4096Mi
+        cpu: 250m
+      limits:
+        memory: 5120Mi
+
+    startupProbe:
+      enabled: true
+
+    minecraftServer:
+      eula: "TRUE"
+      version: LATEST
+      type: PAPER
+      paperDownloadUrl: https://papermc.io/api/v1/paper/1.16.5/latest/download
+      forceReDownload: true
+      jvmOpts: "-Xms4G -Xmx4G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true"
+      memory: 4096M
+      #maxTickTime: -1
+      icon: https://www.freeiconspng.com/uploads/minecraft-enderman-icon-27.png
+      difficulty: hard
+      gameMode: survival
+      levelName: omg
+      maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
+      cheats: true
+      serverName: "minecraft (survival)"
+      serviceType: LoadBalancer
+      loadBalancerIP: 192.168.1.62
+
+    nodeSelector:
+      kubernetes.io/arch: amd64
+      node-role.kubernetes.io/application: "true"
