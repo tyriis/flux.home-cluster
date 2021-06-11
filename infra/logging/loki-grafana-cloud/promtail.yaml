@@ -260,51 +260,51 @@ spec:
         name: promtail
     spec:
       containers:
-      - args:
-        - -client.url=https://52967:eyJrIjoiMzlkMDVkOThhOGU1YmNkZmI5MjdjYzczMThiMzE0OTllZmE0YzY1YyIsIm4iOiJrM3MuaG9tZSIsImlkIjo0OTU3NTB9@logs-prod-us-central1.grafana.net/api/prom/push
-        - -config.file=/etc/promtail/promtail.yml
-        env:
-        - name: HOSTNAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        image: grafana/promtail:2.2.0
-        imagePullPolicy: Always
-        name: promtail
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: http-metrics
-            scheme: HTTP
-          initialDelaySeconds: 10
-        ports:
-        - containerPort: 80
-          name: http-metrics
-        securityContext:
-          privileged: true
-          runAsUser: 0
-        volumeMounts:
-        - mountPath: /etc/promtail
+        - args:
+            - -client.url=https://52967:eyJrIjoiMzlkMDVkOThhOGU1YmNkZmI5MjdjYzczMThiMzE0OTllZmE0YzY1YyIsIm4iOiJrM3MuaG9tZSIsImlkIjo0OTU3NTB9@logs-prod-us-central1.grafana.net/api/prom/push
+            - -config.file=/etc/promtail/promtail.yml
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          image: grafana/promtail:2.2.0
+          imagePullPolicy: Always
           name: promtail
-        - mountPath: /var/log
-          name: varlog
-        - mountPath: /var/lib/docker/containers
-          name: varlibdockercontainers
-          readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 10
+          ports:
+            - containerPort: 80
+              name: http-metrics
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          volumeMounts:
+            - mountPath: /etc/promtail
+              name: promtail
+            - mountPath: /var/log
+              name: varlog
+            - mountPath: /var/lib/docker/containers
+              name: varlibdockercontainers
+              readOnly: true
       serviceAccount: promtail
       tolerations:
-      - effect: NoSchedule
-        operator: Exists
+        - effect: NoSchedule
+          operator: Exists
       volumes:
-      - configMap:
+        - configMap:
+            name: promtail
           name: promtail
-        name: promtail
-      - hostPath:
-          path: /var/log
-        name: varlog
-      - hostPath:
-          path: /var/lib/docker/containers
-        name: varlibdockercontainers
+        - hostPath:
+            path: /var/log
+          name: varlog
+        - hostPath:
+            path: /var/lib/docker/containers
+          name: varlibdockercontainers
   updateStrategy:
     type: RollingUpdate
 ---
@@ -314,26 +314,26 @@ metadata:
   name: promtail
   namespace: logging
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: promtail
   namespace: logging
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  - nodes/proxy
-  - services
-  - endpoints
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+      - nodes/proxy
+      - services
+      - endpoints
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: promtail
@@ -343,6 +343,6 @@ roleRef:
   kind: ClusterRole
   name: promtail
 subjects:
-- kind: ServiceAccount
-  name: promtail
-  namespace: logging
+  - kind: ServiceAccount
+    name: promtail
+    namespace: logging
