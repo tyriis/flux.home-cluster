@@ -47,7 +47,7 @@ spec:
       icon: https://www.freeiconspng.com/uploads/minecraft-enderman-icon-27.png
       difficulty: hard
       OVERRIDE_OPS: true
-      ops: 2535405985178539
+      ops: jazzlyin, tyriis
       gameMode: survival
       maxPlayers: 8
       onlineMode: false
