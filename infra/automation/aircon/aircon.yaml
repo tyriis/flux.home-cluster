@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aircon
+  namespace: automation
+  labels:
+    app: aircon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aircon
+  template:
+    metadata:
+      labels:
+        app: aircon
+    spec:
+      hostNetwork: true
+      containers:
+        - name: aircon
+          image: deiger/aircon:0.3.9
+          ports:
+            - containerPort: 8888
+          envFrom:
+            - configMapRef:
+                name: aircon-config
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          command:
+            - /bin/sh
+          args:
+            - -c
+            - python -m aircon --log_level INFO run --port 8888 --config /config/config_alex.json --config /config/config_bedroom.json --config /config/config_domi.json --config /config/config_livingroom.json --config /config/config_office.json --mqtt_host mqtt.home
+
+      volumes:
+        - name: config
+          secret:
+            secretName: aircon-secret

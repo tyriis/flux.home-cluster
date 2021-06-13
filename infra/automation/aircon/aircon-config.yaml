@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aircon-config
+  namespace: automation
+data:
+  TZ: Europe/Vienna
