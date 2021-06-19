@@ -16,6 +16,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image: itzg/minecraft-bedrock-server
+    imageTag: latest
+
     extraEnv:
       TZ: Europe/Vienna
 
@@ -35,10 +38,12 @@ spec:
       version: LATEST
       difficulty: hard
       gameMode: survival
-      levelName: omg
+      levelSeed: "107016"
+      ops: "2535405985178539"
+      levelName: "jungle_island"
       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
       cheats: true
-      serverName: "minecraft (survival)"
+      serverName: "Jungle Action"
       serviceType: LoadBalancer
 
     nodeSelector:
