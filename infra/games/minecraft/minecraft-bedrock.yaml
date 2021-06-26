@@ -40,7 +40,7 @@ spec:
       gameMode: survival
       levelSeed: "107016"
       ops: "2535405985178539"
-      levelName: "jungle_island"
+      levelName: "jungle_fever"
       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
       cheats: true
       serverName: "Jungle Fever"
