@@ -35,7 +35,7 @@ spec:
 
     minecraftServer:
       eula: "TRUE"
-      version: LATEST
+      version: "1.17.2.01"
       difficulty: hard
       gameMode: survival
       levelSeed: "107016"
@@ -43,7 +43,7 @@ spec:
       levelName: "jungle_island"
       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
       cheats: true
-      serverName: "Jungle Action"
+      serverName: "Jungle Fever"
       serviceType: LoadBalancer
 
     nodeSelector:
