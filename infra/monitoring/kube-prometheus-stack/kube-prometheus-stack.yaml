@@ -63,6 +63,8 @@ spec:
             scheme: https
             static_configs:
               - targets: ['hass.k8s.home']
+            tls_config:
+              insecure_skip_verify: true
 
 
           # - job_name: 'kubernetes-service-endpoints'
