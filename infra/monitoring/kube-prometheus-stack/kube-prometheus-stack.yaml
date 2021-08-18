@@ -31,73 +31,87 @@ spec:
         enableAdminAPI: true
         walCompression: true
         additionalScrapeConfigs:
-        - job_name: node-exporter
-          honor_timestamps: true
-          static_configs:
-          - targets:
-            - nas.home:9100
-            - red.home:9100
+          - job_name: node-exporter
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - nas.home:9100
+                  - red.home:9100
 
-        - job_name: ohm-exporter
-          scrape_interval: 15s
-          static_configs:
-          - targets:
-            - red.home:4445
-            - carbon.home:4445
+          - job_name: ohm-exporter
+            scrape_interval: 15s
+            static_configs:
+              - targets:
+                  - red.home:4445
+                  - carbon.home:4445
 
-        - job_name: windows-exporter
-          scrape_interval: 15s
-          static_configs:
-          - targets:
-            - red.home:9182
+          - job_name: windows-exporter
+            scrape_interval: 15s
+            static_configs:
+              - targets:
+                  - red.home:9182
 
-        # - job_name: 'kubernetes-service-endpoints'
-        #   kubernetes_sd_configs:
-        #   - role: endpoints
-        #   relabel_configs:
-        #   - action: labelmap
-        #     regex: __meta_kubernetes_service_label_(.+)
-        #   - source_labels: [__meta_kubernetes_namespace]
-        #     action: replace
-        #     target_label: kubernetes_namespace
-        #   - source_labels: [__meta_kubernetes_service_name]
-        #     action: replace
-        #     target_label: kubernetes_name
+          # Example Prometheus scrape_configs entry (For version 2.26+
+          - job_name: "hass"
+            scrape_interval: 60s
+            metrics_path: /api/prometheus
 
-        # - job_name: kubernetes-pods
-        #   kubernetes_sd_configs:
-        #   - role: pod
-        #   relabel_configs:
-        #   - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-        #     action: keep
-        #     regex: true
-        #   - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-        #     action: replace
-        #     target_label: __metrics_path__
-        #     regex: (.+)
-        #   - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-        #     action: replace
-        #     regex: ([^:]+)(?::\d+)?;(\d+)
-        #     replacement: $1:$2
-        #     target_label: __address__
-        #   - action: labelmap
-        #     regex: __meta_kubernetes_pod_label_(.+)
-        #   - source_labels: [__meta_kubernetes_namespace]
-        #     action: replace
-        #     target_label: kubernetes_namespace
-        #   - source_labels: [__meta_kubernetes_pod_name]
-        #     action: replace
-        #     target_label: kubernetes_pod_name
+            # Long-Lived Access Token
+            authorization:
+              credentials: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlODE2MjY3OTI4MDg0N2RjOTlmZTI3YjY3ODkzOTI0MSIsImlhdCI6MTYyOTMwMjE0NSwiZXhwIjoxOTQ0NjYyMTQ1fQ.R_qunv_1HB6BkUUrxZgpYpCAxlw6HK4NuptOBn6Pwz0"
+
+            scheme: https
+            static_configs:
+              - targets: ['hass.k8s.home']
+
+
+          # - job_name: 'kubernetes-service-endpoints'
+          #   kubernetes_sd_configs:
+          #   - role: endpoints
+          #   relabel_configs:
+          #   - action: labelmap
+          #     regex: __meta_kubernetes_service_label_(.+)
+          #   - source_labels: [__meta_kubernetes_namespace]
+          #     action: replace
+          #     target_label: kubernetes_namespace
+          #   - source_labels: [__meta_kubernetes_service_name]
+          #     action: replace
+          #     target_label: kubernetes_name
+
+          # - job_name: kubernetes-pods
+          #   kubernetes_sd_configs:
+          #   - role: pod
+          #   relabel_configs:
+          #   - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+          #     action: keep
+          #     regex: true
+          #   - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+          #     action: replace
+          #     target_label: __metrics_path__
+          #     regex: (.+)
+          #   - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+          #     action: replace
+          #     regex: ([^:]+)(?::\d+)?;(\d+)
+          #     replacement: $1:$2
+          #     target_label: __address__
+          #   - action: labelmap
+          #     regex: __meta_kubernetes_pod_label_(.+)
+          #   - source_labels: [__meta_kubernetes_namespace]
+          #     action: replace
+          #     target_label: kubernetes_namespace
+          #   - source_labels: [__meta_kubernetes_pod_name]
+          #     action: replace
+          #     target_label: kubernetes_pod_name
 
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
-              - matchExpressions:
-                - key: node-role.kubernetes.io/monitoring
-                  operator: In
-                  values:
-                  - "true"
+                - matchExpressions:
+                    - key: node-role.kubernetes.io/monitoring
+                      operator: In
+                      values:
+                        - "true"
 
         storageSpec:
           volumeClaimTemplate:
@@ -120,12 +134,12 @@ spec:
     nodeExporter:
       serviceMonitor:
         relabelings:
-        - action: replace
-          regex: (.*)
-          replacement: $1
-          sourceLabels:
-          - __meta_kubernetes_pod_node_name
-          targetLabel: kubernetes_node
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+              - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
 
     grafana:
       enabled: true
@@ -140,22 +154,22 @@ spec:
         dashboardproviders.yaml:
           apiVersion: 1
           providers:
-          - name: default
-            orgId: 1
-            folder: ''
-            type: file
-            disableDeletion: true
-            allowUiUpdates: false
-            options:
-              path: /tmp/dashboards
-          - name: flux
-            orgId: 1
-            folder: Flux
-            type: file
-            disableDeletion: false
-            allowUiUpdates: true
-            options:
-              path: /var/lib/grafana/dashboards/flux
+            - name: default
+              orgId: 1
+              folder: ''
+              type: file
+              disableDeletion: true
+              allowUiUpdates: false
+              options:
+                path: /tmp/dashboards
+            - name: flux
+              orgId: 1
+              folder: Flux
+              type: file
+              disableDeletion: false
+              allowUiUpdates: true
+              options:
+                path: /var/lib/grafana/dashboards/flux
       dashboards:
         flux:
           flux-cluster:
@@ -190,31 +204,31 @@ spec:
           traefik.ingress.kubernetes.io/redirect-entry-point: https
           traefik.ingress.kubernetes.io/redirect-permanent: "true"
         hosts:
-        - monitoring.k8s.home
+          - monitoring.k8s.home
         path: /
         tls:
-        - secretName: k8s-home-cert
-          hosts:
-          - monitoring.k8s.home
+          - secretName: k8s-home-cert
+            hosts:
+              - monitoring.k8s.home
 
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/monitoring
-                operator: In
-                values:
-                - "true"
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/monitoring
+                    operator: In
+                    values:
+                      - "true"
 
     kubelet:
       enabled: true
       serviceMonitor:
         metricRelabelings:
-        - action: replace
-          sourceLabels:
-          - node
-          targetLabel: instance
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
 
     kubeApiServer:
       enabled: true
@@ -232,6 +246,6 @@ spec:
       enabled: false
 
   valuesFrom:
-  - kind: Secret
-    name: "kube-prometheus-stack-helm-values"
-    optional: false
+    - kind: Secret
+      name: "kube-prometheus-stack-helm-values"
+      optional: false
