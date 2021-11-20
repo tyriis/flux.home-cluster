@@ -35,7 +35,7 @@ spec:
 
     minecraftServer:
       eula: "TRUE"
-      version: "1.17.11.01"
+      version: "1.17.41.01"
       difficulty: hard
       gameMode: survival
       levelSeed: "107016"
