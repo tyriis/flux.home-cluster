@@ -35,15 +35,15 @@ spec:
 
     minecraftServer:
       eula: "TRUE"
-      version: "1.17.41.01"
+      version: "1.18.0.02"
       difficulty: hard
       gameMode: survival
-      levelSeed: "107016"
+      levelSeed: ""
       ops: "2535405985178539"
-      levelName: "jungle_fever"
+      levelName: "cliff_caves_adventure"
       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
       cheats: true
-      serverName: "Jungle Fever"
+      serverName: "Cliffs and Caves"
       serviceType: LoadBalancer
 
     nodeSelector:
