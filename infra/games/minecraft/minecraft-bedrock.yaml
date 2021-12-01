@@ -36,7 +36,7 @@ spec:
     minecraftServer:
       eula: "TRUE"
       version: "1.18.0.02"
-      difficulty: hard
+      difficulty: easy
       gameMode: survival
       levelSeed: ""
       ops: "2535405985178539"
