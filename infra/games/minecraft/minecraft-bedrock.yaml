@@ -40,7 +40,7 @@ spec:
       gameMode: survival
       levelSeed: ""
       ops: "2535405985178539"
-      levelName: "cliff_caves_adventure"
+      levelName: "cliffs_caves_adventure"
       maxThreads: 0 # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
       cheats: true
       serverName: "Cliffs and Caves"
