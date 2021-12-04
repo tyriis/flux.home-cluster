@@ -34,14 +34,14 @@ spec:
         traefik.ingress.kubernetes.io/redirect-entry-point: https
         traefik.ingress.kubernetes.io/redirect-permanent: "true"
       hosts:
-      - host: node-red.k8s.home
-        paths:
-        - path: /
-          pathType: Prefix
+        - host: node-red.k8s.home
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
-      - secretName: k8s-home-cert
-        hosts:
-        - node-red.k8s.home
+        - secretName: k8s-home-cert
+          hosts:
+            - node-red.k8s.home
 
     persistence:
       data:
@@ -53,7 +53,7 @@ spec:
 
     nodeSelector:
       kubernetes.io/arch: amd64
-      node-role.kubernetes.io/application: "true"
+      # node-role.kubernetes.io/application: "true"
 
     resources:
       requests:
